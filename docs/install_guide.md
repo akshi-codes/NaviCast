@@ -53,38 +53,26 @@ This guide provides detailed steps to install and configure the lightweight Andr
 
 ## CrankShaft Minimal Installation
 
-1. Open a terminal window on your Raspberry Pi
-2. Create a directory for the project and navigate to it:
+1. Download the project files to your computer
+2. Copy the files to your Raspberry Pi or clone from the repository:
    ```bash
-   mkdir -p ~/crankshaft_minimal
-   cd ~/crankshaft_minimal
+   git clone https://github.com/yourusername/crankshaft_minimal.git
+   cd crankshaft_minimal
    ```
 
-3. Create the necessary files:
-
-   **Method A: Manual creation**
-   - Create setup.sh, launcher.sh, customize.sh, troubleshoot.sh
-   - Use a text editor to paste the contents from this guide
-
-   **Method B: Download from repository**
-   ```bash
-   git clone https://github.com/yourusername/crankshaft_minimal.git .
-   ```
-   (Replace with actual repository URL if available)
-
-4. Make the scripts executable:
+3. Make the scripts executable:
    ```bash
    chmod +x *.sh
    ```
 
-5. Run the setup script:
+4. Run the setup script:
    ```bash
    ./setup.sh
    ```
    This will:
    - Install required dependencies
    - Clone the aasdk and openauto repositories
-   - Create build and configuration scripts
+   - Create additional scripts needed for the project
 
 ## Building the Software
 
@@ -106,18 +94,14 @@ This guide provides detailed steps to install and configure the lightweight Andr
 
 2. This will create a configuration file optimized for maps display.
 
-3. For the best performance, run the customization script:
+3. Set up USB rules:
    ```bash
-   ./customize.sh
-   ```
-
-4. Set up USB rules:
-   ```bash
+   ./create_usb_rules.sh
    sudo cp 51-android.rules /etc/udev/rules.d/
    sudo udevadm control --reload-rules
    ```
 
-5. Reboot your Raspberry Pi:
+4. Reboot your Raspberry Pi:
    ```bash
    sudo reboot
    ```
@@ -130,7 +114,7 @@ This guide provides detailed steps to install and configure the lightweight Andr
 4. Accept the prompt and follow any on-screen instructions
 5. If Android Auto doesn't start automatically, run:
    ```bash
-   ~/crankshaft_minimal/launcher.sh
+   ./launcher.sh
    ```
 
 ## Testing and Usage
@@ -152,26 +136,7 @@ If the display doesn't look correct:
 
 ## Advanced: Wireless Setup
 
-For wireless Android Auto (experimental):
-
-1. Run the wireless setup script:
-   ```bash
-   ./wifi_setup.sh
-   ```
-
-2. After rebooting, your Raspberry Pi will create a Wi-Fi network:
-   - SSID: AndroidAuto-Pi
-   - Password: autoberry
-
-3. On your Android phone:
-   - Connect to the "AndroidAuto-Pi" Wi-Fi network
-   - Open Android Auto settings
-   - Add new wireless connection
-
-4. To check if wireless is working:
-   ```bash
-   ./check_wireless.sh
-   ```
+Wireless Android Auto is not fully implemented in this minimal version. Check the official OpenAuto project for wireless capabilities.
 
 ## Troubleshooting
 
@@ -200,10 +165,5 @@ Common issues and solutions:
 
 4. **Build failures**
    - Make sure all dependencies were installed correctly
-   - Try running build script with `--verbose` for more details
-   - Ensure you have sufficient disk space
-
-5. **Poor performance**
-   - Run the customize script to optimize performance
-   - Close any unnecessary applications
-   - Consider overclocking your Raspberry Pi (advanced) 
+   - Check the output of the setup script for errors
+   - Ensure you have sufficient disk space 
